@@ -6,6 +6,8 @@ abc = string.ascii_lowercase
 #abcdefghijklmnopqrstuvwxyz
 print(abc)
 
+window_width = 400
+
 callback_list = []
 time_list = []
 time_it = []
@@ -19,7 +21,7 @@ def callback_print(sender, app_data):
             callback_list.append(last_char)
             time_list.append(starts)
             print(callback_list)
-            dpg.configure_item("hint_text", show = True, default_value = callback_list, wrap = 350)
+            dpg.configure_item("hint_text", show = True, default_value = callback_list, wrap = window_width - 50)
             if len(callback_list) == 26:
                 end = time.time()
                 print("Congratulations!")
@@ -40,11 +42,11 @@ def reset_game(sender, app_data):
     dpg.configure_item("abc_input", enabled = True)
 
 dpg.create_context()
-dpg.create_viewport(title = 'Can you beat the ABC game?', width = 360, height = 200)
+dpg.create_viewport(title = 'Can you beat the ABC game?', width = window_width, height = 200, resizable = False)
 
 with dpg.window(label = "Vnutorne sily", pos=(50, 50), tag="window"):
 
-    dpg.add_input_text(callback = callback_print, hint = "Start typing ABC...", width = 350, tag = "abc_input")
+    dpg.add_input_text(callback = callback_print, hint = "Start typing ABC...", width = window_width, tag = "abc_input")
     dpg.add_button(label = "Reset game!", show = True, callback = reset_game, tag = "reset_game")
     dpg.add_text("empty", show = False, tag = "time_it")
     dpg.add_text("Hint:", tag = "hint_text_label")
